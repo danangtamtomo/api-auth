@@ -16,25 +16,7 @@ Users.getUser = function (req, res) {
   })
 }
 
-Users.addUser = function (req, res) {
-  jwt.verify(req.headers.authentication, 'shhhhh', function (err, decoded) {
-    User.findOne({
-      where: {
-        email: decoded.user
-      }
-    }).then(function (user) {
-      if (user.role === 'admin') {
-        User.create(req.body).then(function (user) {
-          res.json(user)
-        })
-      } else {
-        res.send({
-          status: 'You dont have any privilege to create new user'
-        })
-      }
-    })
-  })
-}
+Users.addUser = function (req, res) {}
 
 Users.deleteUser = function (req, res) {
   User.destroy({

@@ -1,16 +1,17 @@
 var express = require('express')
 var router = express.Router()
 var users = require('../controllers/users')
+var auth = require('../middlewares/auth')
 
 /* GET users listing. */
-router.get('/', users.getUsers)
+router.get('/', auth.isAuth, auth.isAdmin, users.getUsers)
 
-router.get('/:id', users.getUser)
+router.get('/:id', auth.isAuth, users.getUser)
 
-router.post('/', users.addUser)
+router.post('/', auth.isAuth, auth.isAdmin, users.addUser)
 
-router.delete('/:id', users.deleteUser)
+router.delete('/:id', auth.isAuth, auth.isAdmin, users.deleteUser)
 
-router.put('/:id', users.updateUser)
+router.put('/:id', auth.isAuth, users.updateUser)
 
 module.exports = router
